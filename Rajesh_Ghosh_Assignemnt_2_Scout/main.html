@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="mycss.css">
+	 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script type="text/javascript">
+        var days1=[],t1=[];
+        var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        console.log(document.readyState);
+        var temp=[];
+        var flag=0;
+        var year,month,a,date,city,country;
+        function api_call(){
+    //document.write("asda");
+        flag=1;
+        var hack= 'c0c4a4b4047b97ebc5948ac9c48c0559';
+        var normal='54315abe59ac068a50e3312bc06abeda';
+        var x = document.getElementById("searchdemo").value;
+        console.log(document.readyState);
+        // x=x.toString();
+        //document.write(x);
+
+        fetch(`http://api.openweathermap.org/data/2.5/forecast/daily?q=${x}&units=metric&cnt=7&APPID=${hack}`)
+        .then(res => res.json())
+        .then(res => {
+            console.log(res);
+            console.log(document.readyState);
+            var strDataJson = JSON.stringify(res);
+            // document.write(strDataJson);
+            //document.write(res.coord.lat)
+            console.log(Object.keys(res));
+            console.log(Object.values(res));
+
+            var arr=[];
+            var  days=[];
+            var a = new Date(res.list[0]['dt'] * 1000);
+            var year = a.getFullYear();
+            var month = months[a.getMonth()];
+            var date = a.getDate();
+
+            var city = res.city.name;
+            this.city=city;
+
+            var country = res.city.country;
+            this.country=country;
+
+            this.year= year;
+            this.month=month;
+            this.a=a;
+            this.date=date;
+            for(var i =0 ; i< 7;i++)
+            {
+                arr.push(res.list[i]['dt']);
+                days.push(timeConvert(res.list[i]['dt']));
+            }
+            //var days1=[];
+            for (var i=0;i<7;i++)
+            {
+                days1.push(toDays(days[i]));
+            }
+
+            //var temp=[];
+            for (var i=0;i<7;i++)
+            {
+                temp.push(res.list[i].temp.day);
+            }
+            this.days1=days1;
+            this.temp=temp;
+            console.log(days1);
+            console.log(temp);
+            startWrite();
+           
+        
+        })
+       
+        }
+        
+        //  function startWrite(days,temp){
+        //     document.getElementById("hh").innerHTML = days[1] ;
+        // }
+
+        function timeConvert( x){
+
+            return (Math.floor(x/86400) + 4) % 7;
+
+        }
+
+        function toDays(x){
+            var dict = {
+              '0': "SUN",
+              '1': "MON",         
+              '2':"TUE",'3':"WED",'4':"THU",'5':"FRI",'6':"SAT"
+              
+            }
+            for(var key in dict) {
+             // var value = dict[key];
+              if(key==x)
+                return dict[key];
+
+            }
+        }
+
+    </script>
+</head>
+<body >
+
+<div class='main1'>
+
+
+    <p><img class="image" src="download.jpg" alt="Avatar" id="imq" style="width:400px;height: 400px;" ></p>
+
+
+<ul>
+  <li class="twt"><img src="twitter.png" height="40" width="45"></li>
+  <li class='insta'><img src="instagram-logo.png" height="40" width="40"></li>
+  <li class='heading'><strong>Wearest.</strong></li>
+  <li class="l" align="right">
+
+  </li> 
+  </ul>
+  <table class='mainTable' style="text-align: center">
+  	<tr>
+  	<th>
+  		<img src="snowflake.png" height="40" width="40">
+  	</th>
+  		<th rowspan="2"> 
+  			<div class='line'>
+  			</div>
+  		</th>
+  		<th width="15px;" rowspan="2" >
+  			<p id ='hh1' class="hh1"><strong>TUE</strong></p>
+  		</th>
+  		<th rowspan="2"> <span id='t1'> 2 </span> &deg</th>
+  	</tr>
+  	<tr>
+  		<td>
+  			<strong>Winter</strong>
+  		</td>
+  	</tr>
+  	<tr>
+  		<td>
+  			<img src="snowflake.png" height="40" width="40">
+  		</td>
+  		
+  		<td rowspan="2">
+  			<div class='line'>
+  			</div>
+  		</td>
+  		<td rowspan="2" ><p id='hh2' class="hh2"><STRONG>WED</STRONG></p>
+  		</td>
+  		<td rowspan="2">
+  			<b ><span id='t2'>4</span> &deg</b>
+  		</td>
+  	</tr>
+  	<tr>
+  		<td>
+  			<strong>Winter</strong>
+  		</td>
+  	</tr>
+  	<tr>
+  		<td>
+  			<img src="snowflake.png" height="40" width="40">
+  		</td>
+  		<td rowspan="2">
+  			<div class='line'>
+  			</div>
+  		</td>
+  		<td rowspan="2">
+  			<p id='hh3' class="hh3"> <strong> THU </strong></p>
+  		</td>
+  		<td rowspan="2" >
+  			<b><span id='t3'>1</span> &deg</b>
+  		</td>
+  	</tr>
+  	<tr>
+  		<td >
+  			<strong>Winter</strong>
+  		</td>
+  	</tr>
+  	<tr>
+  		<td >
+  			<img src="snowflake.png" height="40" width="40">
+  		</td>
+  		<td rowspan="2">
+  			<div class='line'>
+  			</div>
+  		</td>
+  		<td rowspan="2">
+  			<p id='hh4' class="hh4"><strong>FRI</strong></p>
+  		</td>
+  		<td rowspan="2">
+  			<b><span id='t4'>3</span> &deg</b>
+  		</td>
+  	</tr>
+  	<tr>
+  		<td>
+  			<strong>Winter</strong>
+  		</td>
+  	</tr>
+  	<tr>
+  		<td >
+  			<img src="snowflake.png" height="40" width="40">
+  		</td>
+  		<td rowspan="2">
+  			<div class='line'>
+  			</div>
+  		</td>
+  		<td rowspan="2">
+  			<p id='hh5' class="hh5"><strong>SAT</strong></p>
+  		</td>
+  		<td rowspan="2">
+  			<b><span id='t5'>5</span> &deg</b>
+  		</td>
+  	</tr>
+  	<tr>
+  		<td>
+  			<strong>Winter</strong>
+  		</td>
+  	</tr>
+  	<tr>
+  		<td >
+  			<img src="snowflake.png" height="40" width="40">
+  		</td>
+  		<td rowspan="2">
+  			<div class='line'>
+  			</div>
+  		</td>
+  		<td rowspan="2">
+  			<p id='hh6' class="hh6"><strong>SUN</strong></p>
+  		</td>
+  		<td rowspan="2">
+  			<b><span id='t6'>6</span> &deg</b>
+  		</td>
+  	</tr>
+  	<tr>
+  		<td>
+  			<strong>Winter</strong>
+  		</td>
+  	</tr>
+</table>
+<table class="sideTable">
+<tr>
+  	<th>
+  		<img src="snowflake.png" height="70" width="70">
+  	</th>
+  		<th rowspan="2"> 
+  			<div class='line1'>
+  			</div>
+  		</th>
+  		
+  		<th rowspan="2"> <span style="font-size: 50px;margin-left: 10px"> <span id='curr'> 5 </span>&deg </span></th>
+  	</tr>
+  	<tr>
+  		<td>
+  			<strong>WINTER</strong>
+  		</td>
+  	</tr>
+  	
+</table>
+<p style="margin-left: 350px;margin-top: 20px">
+	<STRONG><span style="font-size: 30px"><span id='day'> MONDAY </span> , <span id='date'> 30 </span> <span id='month'> FEB </span> <span id='year'> 2090 </span> </STRONG></span><BR>
+			<span style="margin-left: 155px"> <span id='city'> SEOUL </span> , <span id='country'> SOUTH KOREA </span> </span>
+</p>
+
+<div class="container h-100">
+      <div class="d-flex justify-content-center h-100">
+        <div class="searchbar">
+           <input class="search_input" type="text" placeholder="Search..." id="searchdemo">
+          <!-- <a class="search_icon" href="javascript:void(0);" onclick="api_call()" ><i class="fas fa-search" >vascript:void(0);" onclick="api_call()"></i></a> -->
+          <a class="search_icon" type="submit" onclick="api_call()" value="Search"><i class="fas fa-search" ></i></a>
+        </div>
+      </div>
+    </div>
+		
+
+</div>
+
+<script type="text/javascript">
+    
+    function startWrite(){
+
+            console.log(document.getElementById("hh1").innerHTML);
+            //console.log(document.readyState);
+            console.log(days1);
+            document.getElementById("hh1").childNodes[0].textContent = days1[1] ;
+            document.getElementById("hh2").childNodes[0].textContent = days1[2] ;
+            document.getElementById("hh3").innerHTML = days1[3] ;
+            document.getElementById("hh4").childNodes[0].textContent = days1[4] ;
+            document.getElementById("hh5").childNodes[0].textContent = days1[5] ;
+            document.getElementById("hh6").childNodes[0].textContent = days1[6] ;
+
+            document.getElementById("t1").childNodes[0].textContent = temp[1] ;
+            document.getElementById("t2").childNodes[0].textContent = temp[2] ;
+            document.getElementById("t3").childNodes[0].textContent = temp[3] ;
+            document.getElementById("t4").childNodes[0].textContent = temp[4] ;
+            document.getElementById("t5").childNodes[0].textContent = temp[5] ;
+            document.getElementById("t6").childNodes[0].textContent = temp[6] ;
+
+            console.log(date,month,year);
+            console.log(city,country);
+
+             document.getElementById("day").childNodes[0].textContent = days1[0];
+            document.getElementById("date").childNodes[0].textContent = date;
+            document.getElementById("month").childNodes[0].textContent = month;
+            document.getElementById("year").childNodes[0].textContent = year;
+
+            document.getElementById("city").childNodes[0].textContent = city;
+            document.getElementById("country").childNodes[0].textContent = country;
+
+            document.getElementById("curr").childNodes[0].textContent = temp[0];
+
+            temp.length=0;
+            days1.length=0;
+                        
+
+
+
+        }
+</script>
+
+
+</body>
+    
+</html>
