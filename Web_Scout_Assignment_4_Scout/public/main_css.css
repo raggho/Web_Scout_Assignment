@@ -1,0 +1,21 @@
+
+.cbox{
+  border: 2px solid;
+  height: 500px;
+  background: #ffb3ff;
+
+}
+body{
+	text-align: center;
+	
+/*box-shadow:10px 150px 500px 100px blue;
+	/*background: #f5f5f0;*/
+  overflow: auto;
+  }
+  .main1{
+  /*border-radius: 25px;*/
+  margin: 50px;
+  background-image: linear-gradient( to right,white);
+  overflow: auto;
+   
+  }
